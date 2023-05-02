@@ -122,18 +122,18 @@ void clear_args (struct netgauge_cmd_struct *args_info)
   args_info->output_orig = NULL;
   args_info->full_output_arg = gengetopt_strdup ("ng-full.out");
   args_info->full_output_orig = NULL;
-  args_info->tests_arg = 100;
+  args_info->tests_arg = 20;
   args_info->tests_orig = NULL;
   args_info->hostnames_flag = 0;
-  args_info->time_arg = 100;
+  args_info->time_arg = 3600;
   args_info->time_orig = NULL;
-  args_info->size_arg = gengetopt_strdup ("1-131072");
+  args_info->size_arg = gengetopt_strdup ("33554432-134217728");
   args_info->size_orig = NULL;
-  args_info->mode_arg = gengetopt_strdup ("mpi");
+  args_info->mode_arg = gengetopt_strdup ("ib");
   args_info->mode_orig = NULL;
   args_info->comm_pattern_arg = gengetopt_strdup ("one_one");
   args_info->comm_pattern_orig = NULL;
-  args_info->grad_arg = 2;
+  args_info->grad_arg = 16;
   args_info->grad_orig = NULL;
   args_info->manpage_flag = 0;
   args_info->init_thread_flag = 0;
@@ -714,7 +714,7 @@ netgauge_parser_internal (int argc, char * const *argv, struct netgauge_cmd_stru
         
           if (update_arg( (void *)&(args_info->grad_arg), 
                &(args_info->grad_orig), &(args_info->grad_given),
-              &(local_args_info.grad_given), optarg, 0, "2", ARG_INT,
+              &(local_args_info.grad_given), optarg, 0, "16", ARG_INT,
               check_ambiguity, override, 0, 0,
               "grad", 'g',
               additional_error))

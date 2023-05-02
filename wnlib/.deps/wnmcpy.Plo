@@ -1,0 +1,22 @@
+wnmcpy.lo : wnmcpy.c \
+  /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/compilers/include/_cplus_macros.h \
+  /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/compilers/include/_cplus_preinclude.h \
+  wnlib.h wnport.h wncons.h wnerr.h wnmem.h wncpy.h /usr/include/string.h \
+  /usr/include/bits/libc-header-start.h /usr/include/features.h \
+  /usr/include/stdc-predef.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
+  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+  /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h \
+  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
+  /usr/include/strings.h /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h 
+wnmcpy.c \ :
+  /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/compilers/include/_cplus_macros.h \ :
+  /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/compilers/include/_cplus_preinclude.h \ :
+  wnlib.h wnport.h wncons.h wnerr.h wnmem.h wncpy.h /usr/include/string.h \ :
+  /usr/include/bits/libc-header-start.h /usr/include/features.h \ :
+  /usr/include/stdc-predef.h /usr/include/sys/cdefs.h \ :
+  /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \ :
+  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \ :
+  /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h \ :
+  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \ :
+  /usr/include/strings.h /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h  :
