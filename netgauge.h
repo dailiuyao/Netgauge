@@ -22,6 +22,8 @@
 #include <unistd.h> /* usleep */
 
 #include "config.h"        /* macros created by autoconf */
+#include "nccl.h"
+#include "cuda_runtime.h"
 
 #ifdef HAVE_GETOPT_H
 #include <getopt.h> /* getopt long */
@@ -87,6 +89,18 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/*
+  *comm of NCCL
+   */
+  ncclComm_t ncclComm;
+
+  cudaStream_t s;
+
+/**
+ * cuda buffer
+*/
+double* buff;
 
 /**
  * structure description

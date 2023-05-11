@@ -63,29 +63,42 @@ ptrn_distrtt.o : ptrn_distrtt.c \
   /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-helper-functions.h \
   /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-helper-functions.h \
   /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-helper-functions.h \
-  config.h ./getopt.h /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpi.h \
+  config.h /home/ldai8/NCCL/deps-nccl/nccl/build/include/nccl.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_runtime.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_config.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/builtin_types.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/device_types.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/driver_types.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/vector_types.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \
+  /usr/lib/gcc/x86_64-redhat-linux/8/include/limits.h \
+  /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/surface_types.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/texture_types.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/library_types.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/channel_descriptor.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_runtime_api.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/builtin_types.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_device_runtime_api.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/driver_functions.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/builtin_types.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/vector_functions.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/vector_functions.hpp \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_fp16.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_fp16.hpp \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_bf16.h \
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_bf16.hpp \
+  ./getopt.h /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpi.h \
   /usr/lib/gcc/x86_64-redhat-linux/8/include/stdint.h /usr/include/stdint.h \
   /usr/include/bits/libc-header-start.h /usr/include/bits/wchar.h \
   /usr/include/bits/wordsize.h /usr/include/bits/stdint-uintn.h \
   /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpio.h \
-  /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpi.h cpustat.h \
-  statistics.h /usr/include/papi.h \
-  /usr/lib/gcc/x86_64-redhat-linux/8/include/limits.h \
-  /usr/include/papiStdEventDefs.h /usr/include/signal.h \
-  /usr/include/bits/signum.h /usr/include/bits/signum-generic.h \
-  /usr/include/bits/types/sig_atomic_t.h /usr/include/bits/types/siginfo_t.h \
-  /usr/include/bits/wordsize.h /usr/include/bits/types/__sigval_t.h \
-  /usr/include/bits/siginfo-arch.h /usr/include/bits/siginfo-consts.h \
-  /usr/include/bits/types/sigval_t.h /usr/include/bits/types/sigevent_t.h \
-  /usr/include/bits/wordsize.h /usr/include/bits/sigevent-consts.h \
-  /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h \
-  /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h \
-  /usr/include/bits/types/stack_t.h \
-  /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h \
-  /usr/include/sys/ucontext.h /usr/include/bits/sigstack.h \
-  /usr/include/bits/ss_flags.h /usr/include/bits/types/struct_sigstack.h \
-  /usr/include/bits/sigthread.h hrtimer/hrtimer.h hrtimer/x86_64-gcc-rdtsc.h \
-  /usr/include/inttypes.h hrtimer/calibrate.h 
+  /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpi.h cpustat.h 
 ptrn_distrtt.c \ :
   /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/compilers/include/_cplus_macros.h \ :
   /opt/nvidia/hpc_sdk/Linux_x86_64/21.9/compilers/include/_cplus_preinclude.h \ :
@@ -151,26 +164,39 @@ ptrn_distrtt.c \ :
   /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-helper-functions.h \ :
   /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-helper-functions.h \ :
   /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-helper-functions.h \ :
-  config.h ./getopt.h /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpi.h \ :
+  config.h /home/ldai8/NCCL/deps-nccl/nccl/build/include/nccl.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_runtime.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_config.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/builtin_types.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/device_types.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/driver_types.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/vector_types.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \ :
+  /usr/lib/gcc/x86_64-redhat-linux/8/include/limits.h \ :
+  /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/surface_types.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/texture_types.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/library_types.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/channel_descriptor.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_runtime_api.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/builtin_types.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_device_runtime_api.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/driver_functions.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/builtin_types.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/crt/host_defines.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/vector_functions.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/vector_functions.hpp \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_fp16.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_fp16.hpp \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_bf16.h \ :
+  /opt/spack/opt/spack/linux-rhel8-icelake/gcc-8.4.1/cuda-11.8.0-fdqi76f2fma5m7wyc2ngmbkspssgwr2c/include/cuda_bf16.hpp \ :
+  ./getopt.h /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpi.h \ :
   /usr/lib/gcc/x86_64-redhat-linux/8/include/stdint.h /usr/include/stdint.h \ :
   /usr/include/bits/libc-header-start.h /usr/include/bits/wchar.h \ :
   /usr/include/bits/wordsize.h /usr/include/bits/stdint-uintn.h \ :
   /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpio.h \ :
-  /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpi.h cpustat.h \ :
-  statistics.h /usr/include/papi.h \ :
-  /usr/lib/gcc/x86_64-redhat-linux/8/include/limits.h \ :
-  /usr/include/papiStdEventDefs.h /usr/include/signal.h \ :
-  /usr/include/bits/signum.h /usr/include/bits/signum-generic.h \ :
-  /usr/include/bits/types/sig_atomic_t.h /usr/include/bits/types/siginfo_t.h \ :
-  /usr/include/bits/wordsize.h /usr/include/bits/types/__sigval_t.h \ :
-  /usr/include/bits/siginfo-arch.h /usr/include/bits/siginfo-consts.h \ :
-  /usr/include/bits/types/sigval_t.h /usr/include/bits/types/sigevent_t.h \ :
-  /usr/include/bits/wordsize.h /usr/include/bits/sigevent-consts.h \ :
-  /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h \ :
-  /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h \ :
-  /usr/include/bits/types/stack_t.h \ :
-  /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h \ :
-  /usr/include/sys/ucontext.h /usr/include/bits/sigstack.h \ :
-  /usr/include/bits/ss_flags.h /usr/include/bits/types/struct_sigstack.h \ :
-  /usr/include/bits/sigthread.h hrtimer/hrtimer.h hrtimer/x86_64-gcc-rdtsc.h \ :
-  /usr/include/inttypes.h hrtimer/calibrate.h  :
+  /opt/apps/mpi/mpich-3.4.2_nvidiahpc-21.9-0/include/mpi.h cpustat.h  :
