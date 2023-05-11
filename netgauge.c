@@ -208,6 +208,7 @@ int main(int argc, char **argv) {
   if(strstr(g_options.mode, "mpi") == g_options.mode) g_options.mode  = "dummy"; // plug in a dummy if we don't have MPI
 #endif
   /* get requested module and comm pattern */
+
   module = ng_get_module(g_options.mode);
   if (!module) {
     ng_error("Mode %s not supported", g_options.mode);
@@ -396,6 +397,24 @@ int ng_init_mpi(struct ng_options *options, int *argc, char ***argv) {
      ng_error("Could not determine the size of MPI_COMM_WORLD");
      goto shutdown;
   }
+
+  ncclUniqueId ncclId;
+  //ncclComm_t ncclComm;
+  // Generate a unique NCCL ID on rank 0
+  if (options->mpi_opts->worldrank == 0) ncclGetUniqueId(&ncclId);
+  MPI_Bcast((void *)&ncclId, sizeof(ncclId), MPI_BYTE, 0, MPI_COMM_WORLD);
+
+  ncclCommInitRank(&ncclComm, options->mpi_opts->worldsize, ncclId, options->mpi_opts->worldrank);
+
+  cudaStreamCreate(&s);
+
+  int gdb_enable = 0;
+
+  printf("proc %d pid is %d\n", options->mpi_opts->worldrank, (int)getpid());
+    while((gdb_enable == 0) && (options->mpi_opts->worldrank == 0)){
+      printf("loop\n");
+      sleep(10);
+    }
   
   /* check if at least two processes are present */
   /* htor: this is not true anymore with the noise pattern 
@@ -419,6 +438,8 @@ void ng_shutdown_mpi() {
    MPI_Initialized(&was_init);
    if (was_init) {
       ng_info(NG_VLEV1, "Shutting down MPI subsystem");
+      cudaStreamDestroy(s);
+      ncclCommDestroy(ncclComm);
       MPI_Finalize();
    }
 }

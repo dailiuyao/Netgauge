@@ -17,6 +17,8 @@
 extern struct ng_module_list *g_modules;
 extern struct ng_options g_options;
 
+// extern ncclComm_t ncclComm;
+
 /* the benchmark works as follows: 
  * - we want to measure PRTT(n,d,s)
  * - we have two benchmark loops, one over the datasizes and one over the
@@ -337,12 +339,14 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
       ng_info(NG_VLEV1, ".");
       fflush(stdout);
     }
-  
+
+    cudaMalloc(&buff, size * sizeof(double));
+    cudaMemcpy(buff, buffer, size * sizeof(double), cudaMemcpyHostToDevice);
     /* call the appropriate client or server function */
     if (g_options.server) {
       cur_test_time = time(NULL);
       /* execute server mode function */
-      if (be_a_server(buffer, data_size, module, values->n, (o_r ? values->d : 0.0), o_r )) {
+      if (be_a_server(buff, data_size, module, values->n, (o_r ? values->d : 0.0), o_r )) {
         ng_error("server error (test: %i)!\n", test); 
         return 1;
       }
@@ -352,12 +356,16 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
       usleep(10);
       cur_test_time = time(NULL);
       /* execute client mode function */
-      if (be_a_client(buffer, data_size, module, values)) {
+      if (be_a_client(buff, data_size, module, values)) {
         ng_error("client error (test: %i)!\n", test); 
         return 1;
       }
       test_time += time(NULL) - cur_test_time;
     }
+
+    cudaMemcpy(buffer, buff, size * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaStreamSynchronize(s)
+    cudaFree(buff);
   
     /* calculate overall statistics */
     ovr_tests++;
@@ -891,7 +899,8 @@ static int be_a_server(void *buffer, int size, struct ng_module *module, int n, 
     (g_options.server)?
     0 : 1;
   HRT_TIMESTAMP_T t[2];
-  
+
+
   if (ng_recv_all(partner, buffer, size, module)) {
     ng_error("Error in first ng_recv_all()\n");
     return 1;
@@ -909,6 +918,8 @@ static int be_a_server(void *buffer, int size, struct ng_module *module, int n, 
 
   /* get after-receiving time */
   if(o_r) HRT_GET_TIMESTAMP(t[1]);
+
+  
 
   /* Phase 2: send data back */
   if (ng_send_all(partner, buffer, size, module))

@@ -26,6 +26,8 @@ static int mpi_test(NG_Request *req);
 
 extern struct ng_options g_options;
 
+// extern ncclComm_t ncclComm;
+
 /* module registration data structure */
 static struct ng_module mpi_module = {
    .name         = "mpi",
@@ -61,8 +63,14 @@ static struct mpi_private_data {
 } module_data;
 
 
+// static int mpi_sendto(int dst, void *buffer, int size) {
+//   MPI_Send(buffer, size, MPI_BYTE, dst, 0, MPI_COMM_WORLD);
+//   return size;
+// }
+
 static int mpi_sendto(int dst, void *buffer, int size) {
-  MPI_Send(buffer, size, MPI_BYTE, dst, 0, MPI_COMM_WORLD);
+  //allocating and initializing device buffers
+  ncclSend(buffer, size, ncclDouble, dst, ncclComm, s);
   return size;
 }
 
@@ -110,11 +118,15 @@ static int mpi_test(NG_Request *req) {
   return 1;
 }
 
-static int mpi_recvfrom(int src, void *buffer, int size) {
-  MPI_Recv(buffer, size, MPI_BYTE, src, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  return size;
-}
+// static int mpi_recvfrom(int src, void *buffer, int size) {
+//   MPI_Recv(buffer, size, MPI_BYTE, src, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+//   return size;
+// }
 
+ static int mpi_recvfrom(int src, void *buffer, int size) {
+ ncclRecv(buffer, size, ncclDouble, dst, ncclComm, s);
+ return size;
+ }
 
 /** module registration */
 int register_mpi(void) {
