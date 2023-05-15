@@ -8,6 +8,7 @@
  */
 
 #include "netgauge.h"
+
 #if defined NG_MPI && defined NG_MOD_MPI
 
 #define MSG_DONTWAIT 1
@@ -70,7 +71,7 @@ static struct mpi_private_data {
 
 static int mpi_sendto(int dst, void *buffer, int size) {
   //allocating and initializing device buffers
-  ncclSend(buffer, size, ncclDouble, dst, ncclComm, s);
+  MyncclSend(buffer, size, ncclDouble, dst, my_ncclComm, my_s);
   return size;
 }
 
@@ -124,7 +125,7 @@ static int mpi_test(NG_Request *req) {
 // }
 
  static int mpi_recvfrom(int src, void *buffer, int size) {
- ncclRecv(buffer, size, ncclDouble, dst, ncclComm, s);
+ MyncclRecv(buffer, size, ncclDouble, dst, my_ncclComm, my_s);
  return size;
  }
 

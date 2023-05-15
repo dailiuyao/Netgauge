@@ -9,6 +9,7 @@
 
 /* vim: set expandtab tabstop=2 shiftwidth=2 autoindent smartindent: */
 #include "netgauge.h"
+#include "MyNcclCode.h"
 #include "hrtimer/hrtimer.h"
 #include "netgauge_cmdline.h"
 #include <signal.h>  /* signal interception */
@@ -398,23 +399,23 @@ int ng_init_mpi(struct ng_options *options, int *argc, char ***argv) {
      goto shutdown;
   }
 
-  ncclUniqueId ncclId;
+  MyncclUniqueId myncclId;
   //ncclComm_t ncclComm;
   // Generate a unique NCCL ID on rank 0
-  if (options->mpi_opts->worldrank == 0) ncclGetUniqueId(&ncclId);
-  MPI_Bcast((void *)&ncclId, sizeof(ncclId), MPI_BYTE, 0, MPI_COMM_WORLD);
+  if (options->mpi_opts->worldrank == 0) MyncclGetUniqueId(myncclId);
+  MPI_Bcast((void *)&myncclId, sizeof(myncclId), MPI_BYTE, 0, MPI_COMM_WORLD);
 
-  ncclCommInitRank(&ncclComm, options->mpi_opts->worldsize, ncclId, options->mpi_opts->worldrank);
+  MyncclCommInitRank(my_ncclComm, options->mpi_opts->worldsize, myncclId, options->mpi_opts->worldrank);
 
-  cudaStreamCreate(&s);
+  MycudaStreamCreate(&my_s);
 
-  int gdb_enable = 0;
+  // int gdb_enable = 0;
 
-  printf("proc %d pid is %d\n", options->mpi_opts->worldrank, (int)getpid());
-    while((gdb_enable == 0) && (options->mpi_opts->worldrank == 0)){
-      printf("loop\n");
-      sleep(10);
-    }
+  // printf("proc %d pid is %d\n", options->mpi_opts->worldrank, (int)getpid());
+  //   while((gdb_enable == 0) && (options->mpi_opts->worldrank == 0)){
+  //     printf("loop\n");
+  //     sleep(10);
+  //   }
   
   /* check if at least two processes are present */
   /* htor: this is not true anymore with the noise pattern 
@@ -438,8 +439,8 @@ void ng_shutdown_mpi() {
    MPI_Initialized(&was_init);
    if (was_init) {
       ng_info(NG_VLEV1, "Shutting down MPI subsystem");
-      cudaStreamDestroy(s);
-      ncclCommDestroy(ncclComm);
+      MycudaStreamDestroy(my_s);
+      MyncclCommDestroy(my_ncclComm);
       MPI_Finalize();
    }
 }
