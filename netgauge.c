@@ -9,7 +9,6 @@
 
 /* vim: set expandtab tabstop=2 shiftwidth=2 autoindent smartindent: */
 #include "netgauge.h"
-#include "MyNcclCode.h"
 #include "hrtimer/hrtimer.h"
 #include "netgauge_cmdline.h"
 #include <signal.h>  /* signal interception */

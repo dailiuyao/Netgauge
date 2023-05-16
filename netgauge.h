@@ -92,14 +92,14 @@ extern "C" {
 /*
   *comm of NCCL
    */
-  MyNcclComm_t my_ncclComm;
+  static MyNcclComm_t my_ncclComm;
 
-  MycudaStream_t my_s;
+  static MycudaStream_t my_s;
 
 /**
  * cuda buffer
 */
-void* buff;
+static void* buff;
 
 /**
  * structure description

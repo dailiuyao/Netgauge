@@ -4,6 +4,10 @@
 #include <cuda_runtime.h>
 #include "nccl.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
     ncclComm_t ncclComm;
 } MyNcclComm_t;
@@ -49,5 +53,10 @@ void MycudaFree ( void* devPtr_free );
 void MycudaStreamSynchronize ( MycudaStream_t Mystream );
 
 void MycudaMemcpy ( void* dst, const void* src, size_t count, MycudaMemcpyKind kind );
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif 

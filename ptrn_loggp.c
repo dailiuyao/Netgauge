@@ -341,7 +341,7 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
     }
 
     MycudaMalloc(&buff, size * sizeof(double));
-    MycudaMemcpy(buff, buffer, size * sizeof(double), cudaMemcpyHostToDevice);
+    MycudaMemcpy(buff, buffer, size * sizeof(double), MycudaMemcpyHostToDevice);
     /* call the appropriate client or server function */
     if (g_options.server) {
       cur_test_time = time(NULL);
@@ -363,7 +363,7 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
       test_time += time(NULL) - cur_test_time;
     }
 
-    MycudaMemcpy(buffer, buff, size * sizeof(double), cudaMemcpyDeviceToHost);
+    MycudaMemcpy(buffer, buff, size * sizeof(double), MycudaMemcpyDeviceToHost);
     MycudaStreamSynchronize(my_s)
     MycudaFree(buff);
   

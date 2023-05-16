@@ -1,7 +1,7 @@
 #include "MyNcclCode.h"
 
 
-
+extern "C" {
 
 void MyncclSend(const void* sendbuff, size_t count, MyNcclDataType_t datatype, int peer, MyNcclComm_t mycomm, MycudaStream_t stream) {
                    ncclSend(sendbuff, count, datatype, peer, mycomm.ncclComm, stream);
@@ -49,23 +49,24 @@ void MycudaStreamSynchronize ( MycudaStream_t Mystream ) {
 }
 
 void MycudaMemcpy ( void* dst, const void* src, size_t count, MycudaMemcpyKind kind ) {
-                  //cudaMemcpyKind cuda_kind;
-                  // if (kind == MycudaMemcpyHostToHost){
-                  //                   cuda_kind = cudaMemcpyHostToHost;
-                  // } else if (kind == MycudaMemcpyHostToDevice) {
-                  //                   cuda_kind = cudaMemcpyHostToDevice;
-                  // } else if (kind == MycudaMemcpyDeviceToHost) {
-                  //                   cuda_kind = cudaMemcpyDeviceToHost;
-                  // } else if (kind == MycudaMemcpyDeviceToDevice) {
-                  //                   cuda_kind = cudaMemcpyDeviceToDevice;
-                  // } else if (kind == MycudaMemcpyDefault) {
-                  //                   cuda_kind = cudaMemcpyDefault;
-                  // }
+                  cudaMemcpyKind cuda_kind;
+                  if (kind == MycudaMemcpyHostToHost){
+                                    cuda_kind = cudaMemcpyHostToHost;
+                  } else if (kind == MycudaMemcpyHostToDevice) {
+                                    cuda_kind = cudaMemcpyHostToDevice;
+                  } else if (kind == MycudaMemcpyDeviceToHost) {
+                                    cuda_kind = cudaMemcpyDeviceToHost;
+                  } else if (kind == MycudaMemcpyDeviceToDevice) {
+                                    cuda_kind = cudaMemcpyDeviceToDevice;
+                  } else if (kind == MycudaMemcpyDefault) {
+                                    cuda_kind = cudaMemcpyDefault;
+                  }
 
-                  cudaMemcpyKind cuda_kind = static_cast<cudaMemcpyKind>(kind);
+                //   cudaMemcpyKind cuda_kind = static_cast<cudaMemcpyKind>(kind);
 
                   cudaMemcpy (dst, src, count, cuda_kind);
 }
 
+}
 
 
