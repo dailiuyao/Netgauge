@@ -23,6 +23,17 @@
 double g_hrttimer_startvalue;
 unsigned long long g_timerfreq;
 
+
+/*
+  *comm of NCCL
+   */
+  MyNcclComm_t my_ncclComm;
+
+  MycudaStream_t my_s;
+
+
+
+
 /**
  * user supplied options
  */
@@ -208,6 +219,8 @@ int main(int argc, char **argv) {
   if(strstr(g_options.mode, "mpi") == g_options.mode) g_options.mode  = "dummy"; // plug in a dummy if we don't have MPI
 #endif
   /* get requested module and comm pattern */
+
+  printf("NG_MPI is %d\n", NG_MPI);
 
   module = ng_get_module(g_options.mode);
   if (!module) {
@@ -401,20 +414,30 @@ int ng_init_mpi(struct ng_options *options, int *argc, char ***argv) {
   MyncclUniqueId myncclId;
   //ncclComm_t ncclComm;
   // Generate a unique NCCL ID on rank 0
-  if (options->mpi_opts->worldrank == 0) MyncclGetUniqueId(myncclId);
+
+  if (options->mpi_opts->worldrank == 0) MyncclGetUniqueId(&myncclId);
+
   MPI_Bcast((void *)&myncclId, sizeof(myncclId), MPI_BYTE, 0, MPI_COMM_WORLD);
 
-  MyncclCommInitRank(my_ncclComm, options->mpi_opts->worldsize, myncclId, options->mpi_opts->worldrank);
+  // int err = MPI_Bcast((void *)&myncclId, sizeof(myncclId), MPI_BYTE, 0, MPI_COMM_WORLD);
+
+  // printf("err equals = %d\n", err);
+
+  // printf("the program is in 409\n");
+
+  printf("options->mpi_opts->worldrank is:%d\n", options->mpi_opts->worldrank);
+
+  MyncclCommInitRank(&my_ncclComm, options->mpi_opts->worldsize, myncclId, options->mpi_opts->worldrank);
 
   MycudaStreamCreate(&my_s);
 
-  // int gdb_enable = 0;
+  int gdb_enable = 0;
 
-  // printf("proc %d pid is %d\n", options->mpi_opts->worldrank, (int)getpid());
-  //   while((gdb_enable == 0) && (options->mpi_opts->worldrank == 0)){
-  //     printf("loop\n");
-  //     sleep(10);
-  //   }
+  printf("proc %d pid is %d\n", options->mpi_opts->worldrank, (int)getpid());
+    while((gdb_enable == 0) && (options->mpi_opts->worldrank == 0)){
+      printf("loop\n");
+      sleep(10);
+    }
   
   /* check if at least two processes are present */
   /* htor: this is not true anymore with the noise pattern 

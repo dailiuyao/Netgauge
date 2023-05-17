@@ -13,13 +13,13 @@ void MyncclRecv(void* recvbuff, size_t count, MyNcclDataType_t datatype, int pee
 }
 
 
-void MyncclGetUniqueId(MyncclUniqueId Myout) {
-                  ncclGetUniqueId(&(Myout.ncclId)); 
+void MyncclGetUniqueId(MyncclUniqueId* Myout) {
+                  ncclGetUniqueId(&(Myout->ncclId)); 
 }
 
 
-void MyncclCommInitRank(MyNcclComm_t mycomm, int nranks, MyncclUniqueId Myout, int myrank) {
-                  ncclCommInitRank(&(mycomm.ncclComm), nranks, Myout.ncclId, myrank);
+void MyncclCommInitRank(MyNcclComm_t* mycomm_t, int nranks, MyncclUniqueId Myout, int myrank) {
+                  ncclCommInitRank(&(mycomm_t->ncclComm), nranks, Myout.ncclId, myrank);
 }
 
 void MycudaStreamCreate ( MycudaStream_t* MypStream ) {

@@ -317,6 +317,9 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
   /** number of tests run */
   int test, ovr_tests, ovr_bytes;
 
+  /**the cuda buffer**/
+  void* cuda_buff;
+
   /* initialize tests object  */
   values->n=results->n;
   values->d=results->d;
@@ -340,13 +343,13 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
       fflush(stdout);
     }
 
-    MycudaMalloc(&buff, size * sizeof(double));
-    MycudaMemcpy(buff, buffer, size * sizeof(double), MycudaMemcpyHostToDevice);
+    MycudaMalloc(&cuda_buff, size * sizeof(double));
+    MycudaMemcpy(cuda_buff, (void*)buffer, size * sizeof(double), MycudaMemcpyHostToDevice);
     /* call the appropriate client or server function */
     if (g_options.server) {
       cur_test_time = time(NULL);
       /* execute server mode function */
-      if (be_a_server(buff, data_size, module, values->n, (o_r ? values->d : 0.0), o_r )) {
+      if (be_a_server(cuda_buff, data_size, module, values->n, (o_r ? values->d : 0.0), o_r )) {
         ng_error("server error (test: %i)!\n", test); 
         return 1;
       }
@@ -356,16 +359,17 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
       usleep(10);
       cur_test_time = time(NULL);
       /* execute client mode function */
-      if (be_a_client(buff, data_size, module, values)) {
+      if (be_a_client(cuda_buff, data_size, module, values)) {
         ng_error("client error (test: %i)!\n", test); 
         return 1;
       }
       test_time += time(NULL) - cur_test_time;
     }
 
-    MycudaMemcpy(buffer, buff, size * sizeof(double), MycudaMemcpyDeviceToHost);
-    MycudaStreamSynchronize(my_s)
-    MycudaFree(buff);
+    MycudaMemcpy((void*)buffer, cuda_buff, size * sizeof(double), MycudaMemcpyDeviceToHost);
+    MycudaStreamSynchronize(my_s);
+    printf("check this happennig");
+    MycudaFree((void*)cuda_buff);
   
     /* calculate overall statistics */
     ovr_tests++;

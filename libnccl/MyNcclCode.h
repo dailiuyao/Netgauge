@@ -36,9 +36,9 @@ void MyncclSend(const void* sendbuff, size_t count, MyNcclDataType_t datatype, i
 
 void MyncclRecv(void* recvbuff, size_t count, MyNcclDataType_t datatype, int peer, MyNcclComm_t mycomm, MycudaStream_t stream);
 
-void MyncclGetUniqueId(MyncclUniqueId Myout);
+void MyncclGetUniqueId(MyncclUniqueId* Myout);
 
-void MyncclCommInitRank(MyNcclComm_t mycomm, int nranks, MyncclUniqueId Myout, int myrank);
+void MyncclCommInitRank(MyNcclComm_t* mycomm_t, int nranks, MyncclUniqueId Myout, int myrank);
 
 void MycudaStreamCreate (MycudaStream_t* MypStream);
 
