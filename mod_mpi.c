@@ -125,7 +125,7 @@ static int mpi_test(NG_Request *req) {
 // }
 
  static int mpi_recvfrom(int src, void *buffer, int size) {
- MyncclRecv(buffer, size, ncclDouble, dst, my_ncclComm, my_s);
+ MyncclRecv(buffer, size, ncclDouble, src, my_ncclComm, my_s);
  return size;
  }
 
