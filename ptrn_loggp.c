@@ -368,7 +368,7 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
 
     MycudaMemcpy((void*)buffer, cuda_buff, data_size * sizeof(double), MycudaMemcpyDeviceToHost);
     MycudaStreamSynchronize(my_s);
-    printf("check this happennig");
+    //printf("check this happennig");
     MycudaFree((void*)cuda_buff);
   
     /* calculate overall statistics */

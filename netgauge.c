@@ -431,13 +431,13 @@ int ng_init_mpi(struct ng_options *options, int *argc, char ***argv) {
 
   MycudaStreamCreate(&my_s);
 
-  int gdb_enable = 0;
+  // int gdb_enable = 0;
 
-  printf("proc %d pid is %d\n", options->mpi_opts->worldrank, (int)getpid());
-    while((gdb_enable == 0) && (options->mpi_opts->worldrank == 0)){
-      printf("loop\n");
-      sleep(10);
-    }
+  // printf("proc %d pid is %d\n", options->mpi_opts->worldrank, (int)getpid());
+  //   while((gdb_enable == 0) && (options->mpi_opts->worldrank == 0)){
+  //     printf("loop\n");
+  //     sleep(10);
+  //   }
   
   /* check if at least two processes are present */
   /* htor: this is not true anymore with the noise pattern 
