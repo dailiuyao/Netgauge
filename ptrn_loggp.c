@@ -319,6 +319,8 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
 
   /**the cuda buffer**/
   void* cuda_buff;
+  MycudaMalloc(&cuda_buff, data_size * sizeof(double));
+  MycudaMemcpy(cuda_buff, (void*)buffer, data_size * sizeof(double), MycudaMemcpyHostToDevice);
 
   /* initialize tests object  */
   values->n=results->n;
@@ -343,8 +345,8 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
       fflush(stdout);
     }
 
-    MycudaMalloc(&cuda_buff, data_size * sizeof(double));
-    MycudaMemcpy(cuda_buff, (void*)buffer, data_size * sizeof(double), MycudaMemcpyHostToDevice);
+    // MycudaMalloc(&cuda_buff, data_size * sizeof(double));
+    // MycudaMemcpy(cuda_buff, (void*)buffer, data_size * sizeof(double), MycudaMemcpyHostToDevice);
     /* call the appropriate client or server function */
     if (g_options.server) {
       cur_test_time = time(NULL);
@@ -413,6 +415,9 @@ void loggp_do_benchmarks(struct ng_module *module) {
 
   /** the buffer used for transmission tests */
   char *buffer;
+  // /**the cuda buffer**/
+  // char* cuda_buff;
+  
 
   /** Output File */
   FILE *out = NULL;
@@ -504,6 +509,10 @@ void loggp_do_benchmarks(struct ng_module *module) {
   
   ng_info(NG_VLEV2, "Initializing data buffer");
   for (i = 0; i < buffer_size; i++) buffer[i] = i & 0xff;
+
+  // /**the cuda buffer**/
+  // MycudaMalloc(&cuda_buff, data_size * sizeof(double));
+  // MycudaMemcpy(cuda_buff, buffer, data_size * sizeof(double), MycudaMemcpyHostToDevice);
   
 
   if ((pattern_data.client_rank == 0) && (!g_options.server)) 
@@ -557,8 +566,10 @@ void loggp_do_benchmarks(struct ng_module *module) {
     }
 
     res = prtt_do_benchmarks(data_size, module, &values, &results_1_0, buffer, 0);
+    // res = prtt_do_benchmarks(data_size, module, &values, &results_1_0, cuda_buff, 0);
     if(res) goto shutdown;
     res = prtt_do_benchmarks(data_size, module, &values, &results_n_0, buffer, 0);
+    // res = prtt_do_benchmarks(data_size, module, &values, &results_n_0, cuda_buff, 0);
     if(res) goto shutdown;
       
     /* g needs to be fitted to: (PRTT(size,n,0)-PRTT(size,0,0))/(n-1) */
@@ -577,10 +588,12 @@ void loggp_do_benchmarks(struct ng_module *module) {
 
     /* only set this once */
     res = prtt_do_benchmarks(data_size, module, &values, &results_n_d, buffer, 0);
+    // res = prtt_do_benchmarks(data_size, module, &values, &results_n_d, cuda_buff, 0);
     if(res) goto shutdown;
     
     /* only set this once */
     res = prtt_do_benchmarks(data_size, module, &values, &results_o_r, buffer, 1);
+    // res = prtt_do_benchmarks(data_size, module, &values, &results_o_r, cuda_buff, 1);
     if(res) goto shutdown;
     
     /* evaluate the measurement results */
@@ -683,6 +696,10 @@ void loggp_do_benchmarks(struct ng_module *module) {
   }
 
   shutdown:
+  //  MycudaMemcpy(buffer, cuda_buff, data_size * sizeof(double), MycudaMemcpyDeviceToHost);
+  //  MycudaStreamSynchronize(my_s);
+  //  //printf("check this happennig");
+  //  MycudaFree(cuda_buff);
    free(buffer);
    results_1_0.destructor(&results_1_0);
    results_n_0.destructor(&results_n_0);
