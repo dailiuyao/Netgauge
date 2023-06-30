@@ -71,7 +71,7 @@ static struct mpi_private_data {
 
 static int mpi_sendto(int dst, void *buffer, int size) {
   //allocating and initializing device buffers
-  MyncclSend(buffer, size, ncclDouble, dst, my_ncclComm, my_s);
+  MyncclSend(buffer, size, ncclChar, dst, my_ncclComm, my_s);
   return size;
 }
 
@@ -125,7 +125,7 @@ static int mpi_test(NG_Request *req) {
 // }
 
  static int mpi_recvfrom(int src, void *buffer, int size) {
- MyncclRecv(buffer, size, ncclDouble, src, my_ncclComm, my_s);
+ MyncclRecv(buffer, size, ncclChar, src, my_ncclComm, my_s);
  return size;
  }
 

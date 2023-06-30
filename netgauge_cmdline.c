@@ -714,7 +714,7 @@ netgauge_parser_internal (int argc, char * const *argv, struct netgauge_cmd_stru
         
           if (update_arg( (void *)&(args_info->grad_arg), 
                &(args_info->grad_orig), &(args_info->grad_given),
-              &(local_args_info.grad_given), optarg, 0, "16", ARG_INT,
+              &(local_args_info.grad_given), optarg, 0, "2", ARG_INT,
               check_ambiguity, override, 0, 0,
               "grad", 'g',
               additional_error))
