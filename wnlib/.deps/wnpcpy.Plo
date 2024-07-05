@@ -1,0 +1,8 @@
+wnpcpy.lo: wnpcpy.c /usr/include/stdc-predef.h wnlib.h wnport.h wncons.h \
+ wnerr.h wncpy.h
+/usr/include/stdc-predef.h:
+wnlib.h:
+wnport.h:
+wncons.h:
+wnerr.h:
+wncpy.h:

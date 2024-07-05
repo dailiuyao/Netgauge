@@ -383,6 +383,7 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
   if (!g_options.server) {
     double res;
     res = values->getmed(values);
+    printf("n is %d, d is %f, o_r is %d, s is %lu, the median latency in the test is %lf (us)\n", values->n, values->d, o_r, data_size, res);
     results->addval(results, data_size, res);
     //results->getfit(results, 0, results->elems);
     //printf("PRTT(n=%i,d=%.2lf,s=%lu)=%.4lf - a=%lf b=%lf (lsquares: %lf)\n", values->n, values->d, data_size, res, results->a, results->b, results->lsquares);
