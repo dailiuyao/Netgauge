@@ -17,6 +17,16 @@
 extern struct ng_module_list *g_modules;
 extern struct ng_options g_options;
 
+void* cuda_send_buff = NULL;  // Definition of cuda_send_buff
+
+void* cuda_recv_buff = NULL;  // Definition of cuda_recv_buff
+
+int send_buff_id = 0;
+
+int recv_buff_id = 0;
+
+int nccl_malloc_size = 0;
+
 // extern ncclComm_t ncclComm;
 
 /* the benchmark works as follows: 
@@ -317,11 +327,6 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
   /** number of tests run */
   int test, ovr_tests, ovr_bytes;
 
-  /**the cuda buffer**/
-  void* cuda_buff;
-  MycudaMalloc(&cuda_buff, data_size * sizeof(int8_t));
-  MycudaMemcpy(cuda_buff, (void*)buffer, data_size * sizeof(int8_t), MycudaMemcpyHostToDevice);
-
   /* initialize tests object  */
   values->n=results->n;
   values->d=results->d;
@@ -330,6 +335,18 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
                                 /* d = */ values->d, /* s = */ 0);
   }
   values->o_r=o_r;
+
+  /**the cuda buffer**/
+  CUDACHECK(MycudaMalloc(&cuda_send_buff, values->n * data_size * sizeof(int8_t)));
+  CUDACHECK(MycudaMalloc(&cuda_recv_buff, values->n * data_size * sizeof(int8_t)));
+  CUDACHECK(MycudaMemcpy(cuda_send_buff, (void*)buffer, values->n * data_size * sizeof(int8_t), MycudaMemcpyHostToDevice));
+  // CUDACHECK(MycudaStreamSynchronize(my_s));
+  
+  nccl_malloc_size=values->n * data_size * sizeof(int8_t);
+
+  // printf("nccl malloc size is %d\n bytes", nccl_malloc_size);
+
+  // printf("values->n is %d, values->d is %f, test_count is %lu\n", values->n, values->d, test_count);
    
   /* Inner test loop
   * - run the requested number of tests for the current data size
@@ -345,13 +362,17 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
       fflush(stdout);
     }
 
+    recv_buff_id = 0;
+
+    send_buff_id = 0;
+
     // MycudaMalloc(&cuda_buff, data_size * sizeof(double));
     // MycudaMemcpy(cuda_buff, (void*)buffer, data_size * sizeof(double), MycudaMemcpyHostToDevice);
     /* call the appropriate client or server function */
     if (g_options.server) {
       cur_test_time = time(NULL);
       /* execute server mode function */
-      if (be_a_server(cuda_buff, data_size, module, values->n, (o_r ? values->d : 0.0), o_r )) {
+      if (be_a_server(buffer, data_size, module, values->n, (o_r ? values->d : 0.0), o_r )) {
         ng_error("server error (test: %i)!\n", test); 
         return 1;
       }
@@ -361,17 +382,17 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
       usleep(10);
       cur_test_time = time(NULL);
       /* execute client mode function */
-      if (be_a_client(cuda_buff, data_size, module, values)) {
+      if (be_a_client(buffer, data_size, module, values)) {
         ng_error("client error (test: %i)!\n", test); 
         return 1;
       }
       test_time += time(NULL) - cur_test_time;
     }
 
-    MycudaMemcpy((void*)buffer, cuda_buff, data_size * sizeof(int8_t), MycudaMemcpyDeviceToHost);
-    MycudaStreamSynchronize(my_s);
-    //printf("check this happennig");
-    MycudaFree((void*)cuda_buff);
+    // CUDACHECK(MycudaMemcpy((void*)buffer, cuda_buff, data_size * sizeof(int8_t), MycudaMemcpyDeviceToHost));
+    // // MycudaStreamSynchronize(my_s);
+    // //printf("check this happennig");
+    // CUDACHECK(MycudaFree((void*)cuda_buff));
   
     /* calculate overall statistics */
     ovr_tests++;
@@ -391,12 +412,17 @@ static int prtt_do_benchmarks(unsigned long data_size, struct ng_module *module,
 
   }	/* end inner test loop */
 
+  // CUDACHECK(MycudaMemcpy(buffer, cuda_recv_buff, values->n * data_size * sizeof(int8_t), MycudaMemcpyDeviceToHost));
+  CUDACHECK(MycudaFree((void*)cuda_send_buff));
+  CUDACHECK(MycudaFree((void*)cuda_recv_buff));
+
   ng_info(NG_VLEV1, "\n");
 
   /* only a client does the stats stuff */
   if (!g_options.server) {
     double res;
     res = values->getmed(values);
+    printf("n is %d, d is %f, o_r is %d, s is %lu, the median latency in the test is %lf\n", values->n, values->d, o_r, data_size, res);
     results->addval(results, data_size, res);
     //results->getfit(results, 0, results->elems);
     //printf("PRTT(n=%i,d=%.2lf,s=%lu)=%.4lf - a=%lf b=%lf (lsquares: %lf)\n", values->n, values->d, data_size, res, results->a, results->b, results->lsquares);
@@ -499,7 +525,8 @@ void loggp_do_benchmarks(struct ng_module *module) {
   if (loggp_prepare_benchmarks(module)) return;
   
   /* get needed data buffer memory */
-  buffer_size = g_options.max_datasize + module->headerlen;
+  buffer_size = (g_options.max_datasize + module->headerlen)*n;
+  // printf("buffer_size is %d bytes\n", buffer_size);
   ng_info(NG_VLEV2, "Allocating %d bytes data buffer", buffer_size);
   NG_MALLOC(module, void*, buffer_size, buffer);
   if (!buffer) {

@@ -71,7 +71,31 @@ static struct mpi_private_data {
 
 static int mpi_sendto(int dst, void *buffer, int size) {
   //allocating and initializing device buffers
-  MyncclSend(buffer, size, ncclChar, dst, my_ncclComm, my_s);
+//   time_t nccl_send_start, nccl_send_end;
+//   time(&nccl_send_start);
+//   MyncclSend(buffer, size, ncclChar, dst, my_ncclComm, my_s);
+//   CUDACHECK(MycudaStreamSynchronize(my_s));
+//   time(&nccl_send_end);
+//   double nccl_send_time = difftime(nccl_send_end, nccl_send_start);
+//   printf("nccl_send_time is %f\n", nccl_send_time);
+
+//   void* cuda_buff;
+//   CUDACHECK(MycudaMalloc(&cuda_buff, size * sizeof(int8_t)));
+//   CUDACHECK(MycudaMemcpy(cuda_buff, buffer, size * sizeof(int8_t), MycudaMemcpyHostToDevice));
+
+  if ((send_buff_id * size + size) > nccl_malloc_size) {
+      printf(stderr, "Error: Attempting to access out-of-bounds memory in send\n");
+      // Handle error, e.g., skip the send or abort.
+   } else {
+      // printf("send_buff_id in ncclsend is %d, size is %d, pointer address is %p\n", send_buff_id, size, ((char*)(cuda_send_buff) + send_buff_id * size * sizeof(int8_t)));
+      NCCLCHECK(MyncclSend((char*)(cuda_send_buff) + send_buff_id * size * sizeof(int8_t), size, ncclChar, dst, my_ncclComm, my_s));
+      // NCCLCHECK(MyncclSend(cuda_send_buff + send_buff_id * size * sizeof(int8_t), size, ncclChar, dst, my_ncclComm, my_s));
+
+   }
+  CUDACHECK(MycudaStreamSynchronize(my_s));
+  send_buff_id += 1;
+//   CUDACHECK(MycudaMemcpy(buffer, cuda_buff, size * sizeof(int8_t), MycudaMemcpyDeviceToHost));
+//   CUDACHECK(MycudaFree((void*)cuda_buff));
   return size;
 }
 
@@ -125,8 +149,23 @@ static int mpi_test(NG_Request *req) {
 // }
 
  static int mpi_recvfrom(int src, void *buffer, int size) {
- MyncclRecv(buffer, size, ncclChar, src, my_ncclComm, my_s);
- return size;
+   // void* cuda_buff;
+   // CUDACHECK(MycudaMalloc(&cuda_buff, size * sizeof(int8_t)));
+
+   if ((recv_buff_id * size + size) > nccl_malloc_size) {
+      printf(stderr, "Error: Attempting to access out-of-bounds memory in recv\n");
+      // Handle error, e.g., skip the send or abort.
+   } else {
+      // printf("recv_buff_id in ncclrecv is %d, size is %d, pointer address is %p\n", recv_buff_id, size, ((char*)(cuda_recv_buff) + recv_buff_id * size * sizeof(int8_t)));
+      NCCLCHECK(MyncclRecv((char*)(cuda_recv_buff) + recv_buff_id * size*sizeof(int8_t), size, ncclChar, src, my_ncclComm, my_s));
+   }
+   // NCCLCHECK(MyncclRecv(cuda_recv_buff + recv_buff_id * size*sizeof(int8_t), size, ncclChar, src, my_ncclComm, my_s));
+   CUDACHECK(MycudaStreamSynchronize(my_s));
+   // CUDACHECK(MycudaMemcpy(buffer, cuda_buff, size * sizeof(int8_t), MycudaMemcpyDeviceToHost));
+   
+   recv_buff_id += 1;
+
+   return size;
  }
 
 /** module registration */

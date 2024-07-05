@@ -96,6 +96,16 @@ extern "C" {
 
   extern MycudaStream_t my_s;
 
+  extern void* cuda_recv_buff;
+
+  extern void* cuda_send_buff;
+
+  extern int send_buff_id;
+
+  extern int recv_buff_id;
+
+  extern int nccl_malloc_size;
+
 /**
  * cuda buffer
 */

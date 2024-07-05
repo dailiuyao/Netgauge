@@ -31,9 +31,6 @@ unsigned long long g_timerfreq;
 
   MycudaStream_t my_s;
 
-
-
-
 /**
  * user supplied options
  */
@@ -411,11 +408,29 @@ int ng_init_mpi(struct ng_options *options, int *argc, char ***argv) {
      goto shutdown;
   }
 
+  //calculating localRank based on hostname which is used in selecting a GPU
+  int NccllocalRank = 0;
+
+  int NcclnRanks = options->mpi_opts->worldsize;
+  int NcclmyRank = options->mpi_opts->worldrank;
+  uint64_t hostHashs[2];
+  char hostname[1024];
+  gethostname(hostname, 1024);
+  hostHashs[NcclmyRank] = NCCL_getHostHash(hostname);
+  MPICHECK(MPI_Allgather(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, hostHashs, sizeof(uint64_t), MPI_BYTE, MPI_COMM_WORLD));
+  for (int p=0; p<NcclnRanks; p++) {
+     if (p == NcclmyRank) break;
+     if (hostHashs[p] == hostHashs[NcclmyRank]) NccllocalRank++;
+  }
+
+  CUDACHECK(cudaSetDevice(NccllocalRank));
+
+
   MyncclUniqueId myncclId;
   //ncclComm_t ncclComm;
   // Generate a unique NCCL ID on rank 0
 
-  if (options->mpi_opts->worldrank == 0) MyncclGetUniqueId(&myncclId);
+  if (options->mpi_opts->worldrank == 0) NCCLCHECK(MyncclGetUniqueId(&myncclId));
 
   MPI_Bcast((void *)&myncclId, sizeof(myncclId), MPI_BYTE, 0, MPI_COMM_WORLD);
 
@@ -427,9 +442,12 @@ int ng_init_mpi(struct ng_options *options, int *argc, char ***argv) {
 
   printf("options->mpi_opts->worldrank is:%d\n", options->mpi_opts->worldrank);
 
-  MyncclCommInitRank(&my_ncclComm, options->mpi_opts->worldsize, myncclId, options->mpi_opts->worldrank);
+  NCCLCHECK(MyncclCommInitRank(&my_ncclComm, options->mpi_opts->worldsize, myncclId, options->mpi_opts->worldrank));
 
-  MycudaStreamCreate(&my_s);
+  // NcclrecvPeer = (options->mpi_opts->worldrank - 1 + options->mpi_opts->worldsize) % options->mpi_opts->worldsize;
+  // NcclsendPeer = (options->mpi_opts->worldrank + 1) % options->mpi_opts->worldsize;
+
+  CUDACHECK(MycudaStreamCreate(&my_s));
 
   // int gdb_enable = 0;
 
@@ -461,8 +479,8 @@ void ng_shutdown_mpi() {
    MPI_Initialized(&was_init);
    if (was_init) {
       ng_info(NG_VLEV1, "Shutting down MPI subsystem");
-      MycudaStreamDestroy(my_s);
-      MyncclCommDestroy(my_ncclComm);
+      CUDACHECK(MycudaStreamDestroy(my_s));
+      NCCLCHECK(MyncclCommDestroy(my_ncclComm));
       MPI_Finalize();
    }
 }

@@ -3,52 +3,52 @@
 
 extern "C" {
 
-void MyncclSend(const void* sendbuff, size_t count, MyNcclDataType_t datatype, int peer, MyNcclComm_t mycomm, MycudaStream_t stream) {
-                   ncclSend(sendbuff, count, datatype, peer, mycomm.ncclComm, stream);
+ncclResult_t MyncclSend(const void* sendbuff, size_t count, MyNcclDataType_t datatype, int peer, MyNcclComm_t mycomm, MycudaStream_t stream) {
+                   return ncclSend(sendbuff, count, datatype, peer, mycomm.ncclComm, stream);
 }
 
 
-void MyncclRecv(void* recvbuff, size_t count, MyNcclDataType_t datatype, int peer, MyNcclComm_t mycomm, MycudaStream_t stream) {
-                   ncclRecv(recvbuff, count, datatype, peer, mycomm.ncclComm, stream);
+ncclResult_t MyncclRecv(void* recvbuff, size_t count, MyNcclDataType_t datatype, int peer, MyNcclComm_t mycomm, MycudaStream_t stream) {
+                   return ncclRecv(recvbuff, count, datatype, peer, mycomm.ncclComm, stream);
 }
 
 
-void MyncclGetUniqueId(MyncclUniqueId* Myout) {
-                  ncclGetUniqueId(&(Myout->ncclId)); 
+ncclResult_t MyncclGetUniqueId(MyncclUniqueId* Myout) {
+                  return ncclGetUniqueId(&(Myout->ncclId)); 
 }
 
 
-void MyncclCommInitRank(MyNcclComm_t* mycomm_t, int nranks, MyncclUniqueId Myout, int myrank) {
-                  ncclCommInitRank(&(mycomm_t->ncclComm), nranks, Myout.ncclId, myrank);
+ncclResult_t MyncclCommInitRank(MyNcclComm_t* mycomm_t, int nranks, MyncclUniqueId Myout, int myrank) {
+                  return ncclCommInitRank(&(mycomm_t->ncclComm), nranks, Myout.ncclId, myrank);
 }
 
-void MycudaStreamCreate ( MycudaStream_t* MypStream ) {
-                  cudaStreamCreate (MypStream); 
-}
-
-
-void MycudaStreamDestroy ( MycudaStream_t MypStream_create ) {
-                  cudaStreamDestroy (MypStream_create); 
+cudaError_t MycudaStreamCreate ( MycudaStream_t* MypStream ) {
+                  return cudaStreamCreate(MypStream); 
 }
 
 
-void MyncclCommDestroy (MyNcclComm_t mycomm) {
-                  ncclCommDestroy(mycomm.ncclComm);
+cudaError_t MycudaStreamDestroy ( MycudaStream_t MypStream_create ) {
+                  return cudaStreamDestroy (MypStream_create); 
 }
 
-void MycudaMalloc ( void** devPtr, size_t size ) {
-                 cudaMalloc (devPtr, size); 
+
+ncclResult_t MyncclCommDestroy (MyNcclComm_t mycomm) {
+                  return ncclCommDestroy(mycomm.ncclComm);
+}
+
+cudaError_t MycudaMalloc ( void** devPtr, size_t size ) {
+                 return cudaMalloc (devPtr, size); 
 } 
 
-void MycudaFree ( void* devPtr_free ) {
-                  cudaFree (devPtr_free);
+cudaError_t MycudaFree ( void* devPtr_free ) {
+                  return cudaFree (devPtr_free);
 }
 
-void MycudaStreamSynchronize ( MycudaStream_t Mystream ) {
-                  cudaStreamSynchronize (Mystream);
+cudaError_t MycudaStreamSynchronize ( MycudaStream_t Mystream ) {
+                  return cudaStreamSynchronize (Mystream);
 }
 
-void MycudaMemcpy ( void* dst, const void* src, size_t count, MycudaMemcpyKind kind ) {
+cudaError_t MycudaMemcpy ( void* dst, const void* src, size_t count, MycudaMemcpyKind kind ) {
                   cudaMemcpyKind cuda_kind;
                   if (kind == MycudaMemcpyHostToHost){
                                     cuda_kind = cudaMemcpyHostToHost;
@@ -64,7 +64,18 @@ void MycudaMemcpy ( void* dst, const void* src, size_t count, MycudaMemcpyKind k
 
                 //   cudaMemcpyKind cuda_kind = static_cast<cudaMemcpyKind>(kind);
 
-                  cudaMemcpy (dst, src, count, cuda_kind);
+                  return cudaMemcpy (dst, src, count, cuda_kind);
+}
+
+uint64_t NCCL_getHostHash(const char* hostname) {
+    uint64_t hash = 5381;
+    int c;
+
+    while ((c = *hostname++)) {
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+    }
+
+    return hash;
 }
 
 }
