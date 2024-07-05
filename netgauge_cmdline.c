@@ -122,12 +122,12 @@ void clear_args (struct netgauge_cmd_struct *args_info)
   args_info->output_orig = NULL;
   args_info->full_output_arg = gengetopt_strdup ("ng-full.out");
   args_info->full_output_orig = NULL;
-  args_info->tests_arg = 50;
+  args_info->tests_arg = 40;
   args_info->tests_orig = NULL;
   args_info->hostnames_flag = 0;
   args_info->time_arg = 100;
   args_info->time_orig = NULL;
-  args_info->size_arg = gengetopt_strdup ("1-131072");
+  args_info->size_arg = gengetopt_strdup ("1-134217728");
   args_info->size_orig = NULL;
   args_info->mode_arg = gengetopt_strdup ("mpi");
   args_info->mode_orig = NULL;
