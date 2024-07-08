@@ -127,7 +127,7 @@ void clear_args (struct netgauge_cmd_struct *args_info)
   args_info->hostnames_flag = 0;
   args_info->time_arg = 100;
   args_info->time_orig = NULL;
-  args_info->size_arg = gengetopt_strdup ("1-131072");
+  args_info->size_arg = gengetopt_strdup ("1024-1073741824");
   args_info->size_orig = NULL;
   args_info->mode_arg = gengetopt_strdup ("mpi");
   args_info->mode_orig = NULL;
@@ -678,7 +678,7 @@ netgauge_parser_internal (int argc, char * const *argv, struct netgauge_cmd_stru
         
           if (update_arg( (void *)&(args_info->size_arg), 
                &(args_info->size_orig), &(args_info->size_given),
-              &(local_args_info.size_given), optarg, 0, "1-131072", ARG_STRING,
+              &(local_args_info.size_given), optarg, 0, "1024-131072", ARG_STRING,
               check_ambiguity, override, 0, 0,
               "size", 's',
               additional_error))

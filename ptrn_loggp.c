@@ -14,6 +14,8 @@
 #include <time.h>
 #include <assert.h>
 
+#define D_MULTIPLIER 1.5
+
 extern struct ng_module_list *g_modules;
 extern struct ng_options g_options;
 
@@ -262,7 +264,7 @@ static void printparams(struct ng_loggp_prtt_val *gresults,
   G = gresults->a;
 
   ielem = results_n_d->elems-1;
-  o_s = (results_n_d->data[ielem].value - results_1_0->data[ielem].value) / (results_n_d->n-1) - results_1_0->data[ielem].value /* =d */;
+  o_s = (results_n_d->data[ielem].value - results_1_0->data[ielem].value) / (results_n_d->n-1) - D_MULTIPLIER*results_1_0->data[ielem].value /* =d */;
   o_r = results_o_r->data[ielem].value;
 
   /* get L */
@@ -539,7 +541,7 @@ void loggp_do_benchmarks(struct ng_module *module) {
   for (data_size = NG_START_PACKET_SIZE;
 	     !g_stop_tests && data_size > 0 && data_size <= g_options.max_datasize;
 	     //get_next_testparams(&data_size, &test_count, &g_options)) {
-	     data_size+=2*512) {
+	     data_size+=1024*1024) {
       
     if (!g_options.server) {
       printf("Testing %lu bytes %lu times:\n", data_size, test_count);
@@ -559,7 +561,7 @@ void loggp_do_benchmarks(struct ng_module *module) {
                         (results_n_0.data[results_1_0.elems-1].value-results_1_0.data[results_1_0.elems-1].value)/(results_n_0.n-1));
       //gresults.getfit(&gresults, lastchange, gresults.elems);
       /* take the PRTT(1,0,s) as delay - this is bigger than g+G*size :) */
-      results_o_r.d = results_n_d.d = results_1_0.data[results_1_0.elems-1].value;
+      results_o_r.d = results_n_d.d = D_MULTIPLIER*results_1_0.data[results_1_0.elems-1].value;
     }
     /* results_o_r.d must be valid on client and server! */
     MPI_Bcast(&results_o_r.d, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);

@@ -54,7 +54,7 @@
 #define NG_DEFAULT_TEST_COUNT 128
 
 /** initial amount of data to transmit (in bytes) */
-#define NG_START_PACKET_SIZE 1
+#define NG_START_PACKET_SIZE 1024*1024
 
 /** maximum amount of data to transmit (in bytes) */
 #define NG_MAX_DATA_SIZE 1024*1024*1024

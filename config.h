@@ -35,7 +35,7 @@
 #define HAVE_LIBM 1
 
 /* Define to 1 if you have the `papi' library (-lpapi). */
-/* #undef HAVE_LIBPAPI */
+#define HAVE_LIBPAPI 1
 
 /* Define to 1 if you have the `spe2' library (-lspe2). */
 /* #undef HAVE_LIBSPE2 */
@@ -72,7 +72,7 @@
 #define HAVE_NET_ETHERNET_H 1
 
 /* Define to 1 if you have the <papi.h> header file. */
-/* #undef HAVE_PAPI_H */
+#define HAVE_PAPI_H 1
 
 /* Define to 1 if you have the `pow' function. */
 #define HAVE_POW 1
@@ -133,7 +133,7 @@
 #define HRT_ARCH 2
 
 /* highrestimer resolution (ticks/sec) */
-#define HRT_RESOLUTION 2445450938
+#define HRT_RESOLUTION 2394483832
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */

@@ -2,7 +2,7 @@
 
 # libtool - Provide generalized library-building support services.
 # Generated automatically by config.status (netgauge) 2.4.6
-# Libtool was configured on host gpua011.delta.ncsa.illinois.edu:
+# Libtool was configured on host padsys-head.cluster:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 #
 #   Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005,
@@ -86,7 +86,7 @@ NM="/usr/bin/nm -B"
 LN_S="ln -s"
 
 # What is the maximum length of a command?
-max_cmd_len=1572864
+max_cmd_len=3458764513820540925
 
 # Object file suffix (normally "o").
 objext=o
@@ -129,7 +129,7 @@ old_postinstall_cmds="chmod 644 \$oldlib~\$RANLIB \$oldlib"
 old_postuninstall_cmds=""
 
 # A C compiler.
-LTCC="/sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/openmpi-4.1.6-lranp74/bin/mpicc"
+LTCC="/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-10.4.0/mpich-4.1.1-j7lgvgtzrx6aj5k6a7lcs5xg4obnfi6i/bin/mpicc"
 
 # LTCC compiler flags.
 LTCFLAGS="-g -O2"
@@ -234,10 +234,10 @@ finish_eval=""
 hardcode_into_libs=yes
 
 # Compile-time system search path for libraries.
-sys_lib_search_path_spec="/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib64 /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0 /lib64 /usr/lib64 /sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/openmpi-4.1.6-lranp74/lib /sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/cuda-11.8.0-vfixfmc/lib64"
+sys_lib_search_path_spec="/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0 /home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib64 /lib64 /usr/lib64"
 
 # Run-time system search path for libraries.
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/local/cuda/targets/x86_64-linux/lib /usr/local/cuda-12/targets/x86_64-linux/lib /usr/lib64//bind9-export/ /opt/ddn/ime//lib /usr/lib64/dyninst /usr/local/cuda-12.0/targets/x86_64-linux/lib /usr/local/cuda-12.4/targets/x86_64-linux/lib      "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib64/atlas /usr/lib64//bind9-export/ /usr/lib64/dyninst /opt/mellanox/hcoll/lib                /usr/lib64/iscsi /opt/mellanox/sharp/lib "
 
 # Whether dlopen is supported.
 dlopen_support=unknown
@@ -260,7 +260,7 @@ LD="/usr/bin/ld -m elf_x86_64"
 old_archive_cmds="\$AR \$AR_FLAGS \$oldlib\$oldobjs~\$RANLIB \$oldlib"
 
 # A language specific compiler.
-CC="/sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/openmpi-4.1.6-lranp74/bin/mpicc"
+CC="/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-10.4.0/mpich-4.1.1-j7lgvgtzrx6aj5k6a7lcs5xg4obnfi6i/bin/mpicc"
 
 # Is the compiler the GNU compiler?
 with_gcc=yes
@@ -8922,7 +8922,7 @@ LD="/usr/bin/ld -m elf_x86_64"
 old_archive_cmds="\$AR \$AR_FLAGS \$oldlib\$oldobjs~\$RANLIB \$oldlib"
 
 # A language specific compiler.
-CC="/sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/openmpi-4.1.6-lranp74/bin/mpicxx"
+CC="/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-10.4.0/mpich-4.1.1-j7lgvgtzrx6aj5k6a7lcs5xg4obnfi6i/bin/mpicxx"
 
 # Is the compiler the GNU compiler?
 with_gcc=yes
@@ -9047,17 +9047,17 @@ file_list_spec=""
 hardcode_action=immediate
 
 # The directories searched by this compiler when creating a shared library.
-compiler_lib_search_dirs="/sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/openmpi-4.1.6-lranp74/lib /opt/cray/libfabric/1.15.2.0/lib /sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/libevent-2.1.12-dhfcc5z/lib /sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/pmix-5.0.1-kawfcsj/lib /usr/lib64 /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib64/../lib64 /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/../lib64 /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0 /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/../../../../lib64 /lib/../lib64 /usr/lib/../lib64 /sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/openmpi-4.1.6-lranp74/lib /sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/cuda-11.8.0-vfixfmc/lib64 /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib64 /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/../../.."
+compiler_lib_search_dirs="/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-10.4.0/mpich-4.1.1-j7lgvgtzrx6aj5k6a7lcs5xg4obnfi6i/lib /home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0 /home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0/../../../../lib64 /lib/../lib64 /usr/lib/../lib64 /home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0/../../.."
 
 # Dependencies to place before and after the objects being linked to
 # create a shared library.
-predep_objects="/lib/../lib64/crti.o /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/crtbeginS.o"
-postdep_objects="/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/crtendS.o /lib/../lib64/crtn.o"
+predep_objects="/lib/../lib64/crti.o /home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0/crtbeginS.o"
+postdep_objects="/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0/crtendS.o /lib/../lib64/crtn.o"
 predeps=""
-postdeps="-lmpi -lstdc++ -lm -lgcc_s -lpthread -lc -lgcc_s"
+postdeps="-lmpicxx -lmpi -lstdc++ -lm -lgcc_s -lc -lgcc_s"
 
 # The library search path used internally by the compiler when linking
 # a shared library.
-compiler_lib_search_path="-L/sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/openmpi-4.1.6-lranp74/lib -L/opt/cray/libfabric/1.15.2.0/lib -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/libevent-2.1.12-dhfcc5z/lib -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/pmix-5.0.1-kawfcsj/lib -L/usr/lib64 -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib64/../lib64 -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/../lib64 -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0 -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/openmpi-4.1.6-lranp74/lib -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-zen3/gcc-11.4.0/cuda-11.8.0-vfixfmc/lib64 -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib64 -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib -L/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/../../.."
+compiler_lib_search_path="-L/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-10.4.0/mpich-4.1.1-j7lgvgtzrx6aj5k6a7lcs5xg4obnfi6i/lib -L/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0 -L/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0/../../.."
 
 # ### END LIBTOOL TAG CONFIG: CXX

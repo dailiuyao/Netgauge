@@ -4,7 +4,7 @@ wnmcpy.lo: wnmcpy.c /usr/include/stdc-predef.h wnlib.h wnport.h wncons.h \
  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
  /usr/include/bits/long-double.h /usr/include/gnu/stubs.h \
  /usr/include/gnu/stubs-64.h \
- /sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/include/stddef.h \
+ /home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0/include/stddef.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h
 /usr/include/stdc-predef.h:
@@ -22,7 +22,7 @@ wncpy.h:
 /usr/include/bits/long-double.h:
 /usr/include/gnu/stubs.h:
 /usr/include/gnu/stubs-64.h:
-/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/include/stddef.h:
+/home/liuyao/software/spack/opt/spack/linux-almalinux8-icelake/gcc-8.5.0/gcc-10.4.0-oyuz57jurz4x3prwh4cblkwpb32rwc7z/lib/gcc/x86_64-pc-linux-gnu/10.4.0/include/stddef.h:
 /usr/include/bits/types/locale_t.h:
 /usr/include/bits/types/__locale_t.h:
 /usr/include/strings.h:
