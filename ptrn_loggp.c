@@ -588,7 +588,7 @@ void loggp_do_benchmarks(struct ng_module *module) {
   for (data_size = NG_START_PACKET_SIZE;
 	     !g_stop_tests && data_size > 0 && data_size <= g_options.max_datasize;
 	     //get_next_testparams(&data_size, &test_count, &g_options)) {
-	     data_size+=1024*1024) {
+	     data_size+=1024) {
       
     if (!g_options.server) {
       printf("Testing %lu bytes %lu times:\n", data_size, test_count);
