@@ -58,7 +58,7 @@
 #define NG_START_PACKET_SIZE 1024
 
 /** maximum amount of data to transmit (in bytes) */
-#define NG_MAX_DATA_SIZE 1024*1024*1024
+#define NG_MAX_DATA_SIZE 1024*1024
 
 /** gradation of the geometrical data size growth */
 #define NG_DEFAULT_DATASIZE_GRADATION 1
